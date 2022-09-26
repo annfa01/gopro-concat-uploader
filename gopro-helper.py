@@ -20,7 +20,7 @@ if exists(temp_dir_path) == False:
 for file in directory:
     if file.endswith(".MP4") or file.endswith(".mp4"):
         copy2(file, temp_dir_path)
-# засовываю данные о видосах в словарь 
+# засовываю данные о видосах в словарь # не, иди нахуй
 mylist = []
 for file in directory:
     path = file
