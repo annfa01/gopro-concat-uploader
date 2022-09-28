@@ -11,7 +11,7 @@ target_path = 'F:/DCIM/100GOPRO'
 chdir(target_path)
 directory = listdir()
 # записала список файлов в переменную
-temp_dir_path = 'D:/Рабочий стол/gopro'
+temp_dir_path = 'D:/Desktop/gopro'
 if exists(temp_dir_path) == False:
     # создаю временную папку на рабочем столе, если ее нет
     mkdir(temp_dir_path)
@@ -20,7 +20,7 @@ if exists(temp_dir_path) == False:
 for file in directory:
     if file.endswith(".MP4") or file.endswith(".mp4"):
         copy2(file, temp_dir_path)
-# засовываю данные о видосах в словарь # не, иди нахуй
+# засовываю данные о видосах в словарь 
 mylist = []
 for file in directory:
     path = file
@@ -63,6 +63,7 @@ sortedIds = sorted(mainonlylist, key=lambda x: x['id'])
 rename_plan = []
 iterator = 1
 #делаю план по переименовыванию видосов
+chdir(temp_dir_path)
 for record in mainonlylist:
     rename_plan.append({'oldName': record['path'],
     'newName': str(iterator) + '.mp4'})
@@ -72,9 +73,19 @@ for record in mainonlylist:
             rename_plan.append({'oldName': chapter['path'],
     'newName': str(iterator) + '.mp4'})
             iterator = iterator + 1
-#собственно переименовываю видосы    
+#собственно переименовываю видосы
+print(rename_plan)    
 for entry in rename_plan: 
   oldName = entry['oldName'] 
   newName = entry['newName'] 
    
   rename(oldName, newName)
+
+  newNamelist = []
+for entry in rename_plan:
+    newNamelist.append(entry['newName'])
+Newfile = open('D:/Desktop/gopro/output.txt', 'w+')
+for element in newNamelist:
+     Newfile.write('file ' + "'" + element + "'")
+     Newfile.write('\n')
+Newfile.close()
