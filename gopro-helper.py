@@ -4,6 +4,9 @@ from os import listdir
 from shutil import copy2
 from os.path import exists
 from os import rename
+from os import system
+from shutil import rmtree
+from os import rmdir
 
 # целевой путь в файловой системе (должен быть на сд карте где видосы)
 target_path = 'F:/DCIM/100GOPRO'
@@ -73,8 +76,7 @@ for record in mainonlylist:
             rename_plan.append({'oldName': chapter['path'],
     'newName': str(iterator) + '.mp4'})
             iterator = iterator + 1
-#собственно переименовываю видосы
-print(rename_plan)    
+#собственно переименовываю видосы  
 for entry in rename_plan: 
   oldName = entry['oldName'] 
   newName = entry['newName'] 
@@ -84,8 +86,16 @@ for entry in rename_plan:
   newNamelist = []
 for entry in rename_plan:
     newNamelist.append(entry['newName'])
-Newfile = open('D:/Desktop/gopro/output.txt', 'w+')
+Newfile = open('D:/Desktop/gopro/mylist.txt', 'w+')
 for element in newNamelist:
      Newfile.write('file ' + "'" + element + "'")
      Newfile.write('\n')
 Newfile.close()
+
+system("ffmpeg -f concat -i mylist.txt -c copy output.mp4") 
+file_path = 'D:/Desktop/gopro/output.mp4'
+final_path = 'D:/Desktop'
+chdir(final_path)
+copy2(file_path, final_path)
+print('сделано')
+rmtree(temp_dir_path)
